@@ -1,0 +1,5 @@
+/_my
+/dist
+!/dist/index.html
+/node_modules
+package-lock.json
