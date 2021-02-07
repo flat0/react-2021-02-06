@@ -60,11 +60,11 @@ class Square extends React.Component {
 		<button
 			className='square'
 			onClick={/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component */
-				() => alert('click')
+				() => this.setState({value: 'X'})
 			}
 		>
 			{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
-			{this.props.value}
+			{this.state.value}
 		</button>
 	);}
 }
