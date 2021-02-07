@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 class Board extends React.Component {
 	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	renderSquare(i) {return <Square value={i} />;}
+	renderSquare(i) {return <Square value={i}/>;}
 	render() {
 		const status = 'Next player: X';
 		return (
@@ -45,12 +45,7 @@ class Game extends React.Component {
 	}
 }
 class Square extends React.Component {
-	render() {
-		return (
-			<button className='square'>
-				{/* TODO */}
-			</button>
-		);
-	}
+	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
+	render() {return <button className='square'>{this.props.value}</button>;}
 }
 ReactDOM.render(<Game/>, document.getElementById('root'));
