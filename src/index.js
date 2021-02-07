@@ -50,6 +50,9 @@ class Square extends React.Component {
 	 * @param d
 	 */
 	constructor(d) {
+		// 2021-02-08
+		// «All React component classes that have a constructor should start with a super(props) call»:
+		// https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
 		super(d);
 		this.state = {value: null};
 	}
