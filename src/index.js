@@ -3,8 +3,14 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 class Board extends React.Component {
-	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	renderSquare(i) {return <Square value={i}/>;}
+	/**
+	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * @param d
+	 */
+	constructor(d) {
+		super(d);
+		this.state = {squares: Array(9).fill(null)};
+	}
 	render() {
 		const status = 'Next player: X';
 		return (
@@ -28,6 +34,8 @@ class Board extends React.Component {
 			</div>
 		);
 	}
+	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
+	renderSquare(i) {return <Square value={i}/>;}
 }
 class Game extends React.Component {
 	render() {
