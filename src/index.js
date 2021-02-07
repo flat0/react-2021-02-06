@@ -45,7 +45,16 @@ class Game extends React.Component {
 	}
 }
 class Square extends React.Component {
-	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	render() {return <button className='square'>{this.props.value}</button>;}
+	render() {return (
+		<button
+			className='square'
+			onClick={/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component */
+				function() {alert('click');}
+			}
+		>
+			{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
+			{this.props.value}
+		</button>
+	);}
 }
 ReactDOM.render(<Game/>, document.getElementById('root'));
