@@ -11,6 +11,16 @@ class Board extends React.Component {
 		super(d);
 		this.state = {squares: Array(9).fill(null)};
 	}
+
+	/**
+	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * @param {Number} i
+	 */
+	handleClick(i) {
+		const squares = this.state.squares.slice();
+		squares[i] = 'X';
+		this.setState({squares: squares});
+	}
 	render() {
 		const status = 'Next player: X';
 		return (
