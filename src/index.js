@@ -1,4 +1,4 @@
-/* 2021-02-07 https://reactjs.org/docs/create-a-new-react-app.html#create-react-app */
+// 2021-02-07 https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
 import './index.css';
 import App from './App';
 import React from 'react';
