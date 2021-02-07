@@ -47,10 +47,10 @@ class Game extends React.Component {
 class Square extends React.Component {
 	/**
 	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
-	 * @param props
+	 * @param d
 	 */
-	constructor(props) {
-		super(props);
+	constructor(d) {
+		super(d);
 		this.state = {value: null};
 	}
 	render() {return (
