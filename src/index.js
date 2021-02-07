@@ -41,7 +41,7 @@ class Board extends React.Component {
 	 * @param {Number} i
 	 * @returns {JSX.Element}
 	 */
-	renderSquare(i) {return <Square value={this.state.squares[i]}/>;}
+	renderSquare(i) {return <Square onClick={() => this.handleClick(i)} value={this.state.squares[i]}/>;}
 }
 class Game extends React.Component {
 	render() {
@@ -59,26 +59,27 @@ class Game extends React.Component {
 	}
 }
 class Square extends React.Component {
-	/**
-	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
-	 * @param d
-	 */
-	constructor(d) {
-		// 2021-02-08
-		// «All React component classes that have a constructor should start with a super(props) call»:
-		// https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
-		super(d);
-		this.state = {value: null};
-	}
 	render() {return (
 		<button
 			className='square'
-			onClick={/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component */
-				() => this.setState({value: 'X'})
+			onClick={
+				// 2021-02-08
+				// 1) https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
+				// 2) «When a `Square` is clicked, the `onClick` function provided by the `Board` is called.
+				// Here’s a review of how this is achieved:
+				// 1) The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
+				// 2) When the button is clicked,
+				// React will call the `onClick` event handler that is defined in `Square`’s `render()` method.
+				// 3) This event handler calls `this.props.onClick()`.
+				// The `Square`’s `onClick` prop was specified by the Board.
+				// 4) Since the `Board` passed `onClick={() => this.handleClick(i)}` to `Square`,
+				// the `Square` calls `this.handleClick(i)` when clicked.»
+				// https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+				() => this.props.onClick()
 			}
 		>
 			{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
-			{this.state.value}
+			{this.props.value}
 		</button>
 	);}
 }
