@@ -81,29 +81,27 @@ class Game extends React.Component {
 		);
 	}
 }
-class Square extends React.Component {
-	render() {return (
-		<button
-			className='square'
-			onClick={
-				// 2021-02-08
-				// 1) https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
-				// 2) «When a `Square` is clicked, the `onClick` function provided by the `Board` is called.
-				// Here’s a review of how this is achieved:
-				// 1) The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
-				// 2) When the button is clicked,
-				// React will call the `onClick` event handler that is defined in `Square`’s `render()` method.
-				// 3) This event handler calls `this.props.onClick()`.
-				// The `Square`’s `onClick` prop was specified by the Board.
-				// 4) Since the `Board` passed `onClick={() => this.handleClick(i)}` to `Square`,
-				// the `Square` calls `this.handleClick(i)` when clicked.»
-				// https://reactjs.org/tutorial/tutorial.html#lifting-state-up
-				() => this.props.onClick()
-			}
-		>
-			{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
-			{this.props.value}
-		</button>
-	);}
-}
+/**
+ * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#function-components
+ * @param {Object} d
+ * @returns {JSX.Element}
+ */
+function Square(d) {return(
+	// 2021-02-08
+	// 1) https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
+	// 2) «When a `Square` is clicked, the `onClick` function provided by the `Board` is called.
+	// Here’s a review of how this is achieved:
+	// 1) The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
+	// 2) When the button is clicked,
+	// React will call the `onClick` event handler that is defined in `Square`’s `render()` method.
+	// 3) This event handler calls `this.props.onClick()`.
+	// The `Square`’s `onClick` prop was specified by the Board.
+	// 4) Since the `Board` passed `onClick={() => this.handleClick(i)}` to `Square`,
+	// the `Square` calls `this.handleClick(i)` when clicked.»
+	// https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	<button className='square' onClick={d.onClick}>
+		{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
+		{d.value}
+	</button>
+);}
 ReactDOM.render(<Game/>, document.getElementById('root'));
