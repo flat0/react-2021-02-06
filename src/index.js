@@ -34,8 +34,14 @@ class Board extends React.Component {
 			</div>
 		);
 	}
-	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	renderSquare(i) {return <Square value={i}/>;}
+	/**
+	 * 2021-02-08
+	 * 1) https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
+	 * 2) https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * @param {Number} i
+	 * @returns {JSX.Element}
+	 */
+	renderSquare(i) {return <Square value={this.state.squares[i]}/>;}
 }
 class Game extends React.Component {
 	render() {
