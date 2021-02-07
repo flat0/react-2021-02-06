@@ -2,15 +2,6 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-class Square extends React.Component {
-	render() {
-		return (
-			<button className='square'>
-				{/* TODO */}
-			</button>
-		);
-	}
-}
 class Board extends React.Component {
 	renderSquare(i) {return <Square/>;}
 	render() {
@@ -49,6 +40,15 @@ class Game extends React.Component {
 					<ol>{/* TODO */}</ol>
 				</div>
 			</div>
+		);
+	}
+}
+class Square extends React.Component {
+	render() {
+		return (
+			<button className='square'>
+				{/* TODO */}
+			</button>
 		);
 	}
 }
