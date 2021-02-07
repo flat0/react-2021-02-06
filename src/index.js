@@ -3,7 +3,8 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 class Board extends React.Component {
-	renderSquare(i) {return <Square/>;}
+	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
+	renderSquare(i) {return <Square value={i} />;}
 	render() {
 		const status = 'Next player: X';
 		return (
