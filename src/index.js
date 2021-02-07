@@ -91,14 +91,18 @@ function Square(d) {return(
 	// 1) https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component
 	// 2) «When a `Square` is clicked, the `onClick` function provided by the `Board` is called.
 	// Here’s a review of how this is achieved:
-	// 1) The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
-	// 2) When the button is clicked,
+	// 2.1) The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
+	// 2.2) When the button is clicked,
 	// React will call the `onClick` event handler that is defined in `Square`’s `render()` method.
-	// 3) This event handler calls `this.props.onClick()`.
+	// 2.3) This event handler calls `this.props.onClick()`.
 	// The `Square`’s `onClick` prop was specified by the Board.
-	// 4) Since the `Board` passed `onClick={() => this.handleClick(i)}` to `Square`,
+	// 2.4) Since the `Board` passed `onClick={() => this.handleClick(i)}` to `Square`,
 	// the `Square` calls `this.handleClick(i)` when clicked.»
 	// https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	// 3) «When we modified the `Square` to be a function component,
+	// we also changed `onClick={() => this.props.onClick()}` to a shorter `onClick={props.onClick}`
+	// (note the lack of parentheses on both sides).»
+	// https://reactjs.org/tutorial/tutorial.html#function-components
 	<button className='square' onClick={d.onClick}>
 		{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
 		{d.value}
