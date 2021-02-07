@@ -49,7 +49,7 @@ class Square extends React.Component {
 		<button
 			className='square'
 			onClick={/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#making-an-interactive-component */
-				function() {alert('click');}
+				() => alert('click')
 			}
 		>
 			{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
