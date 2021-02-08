@@ -92,7 +92,11 @@ class Game extends React.Component {
 	render() {
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 		const history = this.state.history;
-		const current = history[history.length - 1];
+		// 2021-02-08
+		// «we will modify the Game component’s render method
+		// from always rendering the last move to rendering the currently selected move according to stepNumber»:
+		// https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
+		const current = history[this.state.stepNumber];
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
 		const winner = calculateWinner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
