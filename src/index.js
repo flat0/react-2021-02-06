@@ -34,11 +34,14 @@ class Board extends React.Component {
 		// which helps to determine when a component requires re-rendering.»
 		// https://reactjs.org/tutorial/tutorial.html#determining-when-to-re-render-in-react
 		const squares = this.state.squares.slice();
-		squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
-		this.setState({
-			squares: squares
-			,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
-		});
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
+		if (!calculateWinner(squares) && !squares[i]) {
+			squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
+			this.setState({
+				squares: squares
+				,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
+			});
+		}
 	}
 	render() {
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
