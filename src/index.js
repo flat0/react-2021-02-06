@@ -106,11 +106,15 @@ class Game extends React.Component {
 		 * @return {String}
 		 */
 		const coords = function(move) {return `(${move % 3}, ${Math.floor(move / 3)})`;};
+		const lastI = history.length - 1;
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves
 		const moves = history.map((step, i) => {
 			const desc ='Go to ' + (i ? 'move #' + i + ' ' + coords(step.move) : 'game start');
 			// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
-			return <li key={i}><button onClick={() => this.jumpTo(i)}>{desc}</button></li>;
+			// 2021-02-09
+			// "Add a toggle button that lets you sort the moves in either ascending or descending order":
+			// https://github.com/flat0/react-tic-tac-toe/issues/4
+			return <li className={i < lastI ? '' : 'last'} key={i}><button onClick={() => this.jumpTo(i)}>{desc}</button></li>;
 		});
 		// 2021-02-09
 		// "Add a toggle button that lets you sort the moves in either ascending or descending order":
