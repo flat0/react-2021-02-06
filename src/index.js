@@ -78,7 +78,13 @@ class Game extends React.Component {
 			squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			this.setState({
 				// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
-				history: history.concat([{squares: squares}])
+				history: history.concat([{
+					// 2021-02-08
+					// "Display the location for each move in the format (col, row) in the move history list":
+					// https://github.com/flat0/react-2021-02-06/issues/1
+					move: i
+					,squares: squares
+				}])
 				,stepNumber: history.length // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 				,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			});
@@ -101,11 +107,19 @@ class Game extends React.Component {
 		const winner = calculateWinner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
 		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+		/**
+		 * 2021-02-08
+		 * "Display the location for each move in the format (col, row) in the move history list":
+		 * https://github.com/flat0/react-2021-02-06/issues/1
+		 * @param {Number} move
+		 * @return {String}
+		 */
+		const coords = function(move) {return `(${move % 3}, ${Math.floor(move / 3)})`;};
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves
-		const moves = history.map((step, move) => {
-			const desc ='Go to ' + (move ? 'move #' + move : 'game start');
+		const moves = history.map((step, i) => {
+			const desc ='Go to ' + (i ? 'move #' + i + ' ' + coords(step.move) : 'game start');
 			// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
-			return <li key={move}><button onClick={() => this.jumpTo(move)}>{desc}</button></li>;
+			return <li key={i}><button onClick={() => this.jumpTo(i)}>{desc}</button></li>;
 		});
 		return (
 			<div className='game'>
