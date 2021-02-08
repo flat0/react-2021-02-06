@@ -52,8 +52,12 @@ class Game extends React.Component {
 	 * @param {Number} i
 	 */
 	handleClick(i) {
-		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
-		const history = this.state.history;
+		// 2021-02-08
+		// 1) https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+		// 2) «This ensures that if we “go back in time” and then make a new move from that point
+		// we throw away all the “future” history that would now become incorrect.»
+		// https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
+		const history = this.state.history.slice(0, this.state.stepNumber + 1);
 		const current = history[history.length - 1];
 		// 2021-02-08
 		// 1) «Avoiding direct data mutation lets us keep previous versions of the game’s history intact, and reuse them later»:
@@ -75,6 +79,7 @@ class Game extends React.Component {
 			this.setState({
 				// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 				history: history.concat([{squares: squares}])
+				,stepNumber: history.length // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 				,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			});
 		}
