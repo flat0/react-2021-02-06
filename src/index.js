@@ -3,23 +3,57 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 class Board extends React.Component {
+	render() {return (
+		<div>
+			<div className='board-row'>
+				{this.renderSquare(0)}
+				{this.renderSquare(1)}
+				{this.renderSquare(2)}
+			</div>
+			<div className='board-row'>
+				{this.renderSquare(3)}
+				{this.renderSquare(4)}
+				{this.renderSquare(5)}
+			</div>
+			<div className='board-row'>
+				{this.renderSquare(6)}
+				{this.renderSquare(7)}
+				{this.renderSquare(8)}
+			</div>
+		</div>
+	);}
 	/**
-	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up
-	 * @param d
+	 * 2021-02-08
+	 * 1) https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
+	 * 2) https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * 3) https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+	 * @param {Number} i
+	 * @returns {JSX.Element}
+	 */
+	renderSquare(i) {return <Square onClick={() => this.props.handleClick(i)} value={this.props.state.squares[i]}/>;}
+}
+class Game extends React.Component {
+	/**
+	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+	 * @param {Object} d
 	 */
 	constructor(d) {
 		super(d);
 		this.state = {
-			squares: Array(9).fill(null)
+			history: [{squares: Array(9).fill(null)}]
 			,xIsNext: true // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 		};
 	}
-
 	/**
-	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * 2021-02-08
+	 * 1) https://reactjs.org/tutorial/tutorial.html#lifting-state-up
+	 * 2) https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 	 * @param {Number} i
 	 */
 	handleClick(i) {
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+		const history = this.state.history;
+		const current = history[history.length - 1];
 		// 2021-02-08
 		// 1) «Avoiding direct data mutation lets us keep previous versions of the game’s history intact, and reuse them later»:
 		// https://reactjs.org/tutorial/tutorial.html#complex-features-become-simple
@@ -38,66 +72,32 @@ class Board extends React.Component {
 		if (!calculateWinner(squares) && !squares[i]) {
 			squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			this.setState({
-				squares: squares
+				// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+				history: history.concat([{squares: squares}])
 				,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			});
 		}
 	}
 	render() {
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+		const history = this.state.history;
+		const current = history[history.length - 1];
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
 		const winner = calculateWinner(this.state.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
 		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		return (
-			<div>
-				<div className='status'>{status}</div>
-				<div className='board-row'>
-					{this.renderSquare(0)}
-					{this.renderSquare(1)}
-					{this.renderSquare(2)}
-				</div>
-				<div className='board-row'>
-					{this.renderSquare(3)}
-					{this.renderSquare(4)}
-					{this.renderSquare(5)}
-				</div>
-				<div className='board-row'>
-					{this.renderSquare(6)}
-					{this.renderSquare(7)}
-					{this.renderSquare(8)}
-				</div>
-			</div>
-		);
-	}
-	/**
-	 * 2021-02-08
-	 * 1) https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	 * 2) https://reactjs.org/tutorial/tutorial.html#lifting-state-up
-	 * @param {Number} i
-	 * @returns {JSX.Element}
-	 */
-	renderSquare(i) {return <Square onClick={() => this.handleClick(i)} value={this.state.squares[i]}/>;}
-}
-class Game extends React.Component {
-	/**
-	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
-	 * @param {Object} d
-	 */
-	constructor(d) {
-		super(d);
-		this.state = {
-			history: [{squares: Array(9).fill(null)}]
-			,xIsNext: true
-		};
-	}
-	render() {
-		return (
 			<div className='game'>
 				<div className='game-board'>
-					<Board/>
+					<Board
+						{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+						onClick={(i) => this.handleClick(i)}
+						squares={current.squares}
+					/>
 				</div>
 				<div className='game-info'>
-					<div>{/* status */}</div>
+					{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+					<div>{status}</div>
 					<ol>{/* TODO */}</ol>
 				</div>
 			</div>
