@@ -3,7 +3,6 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 function Board(d) {return <div>{(() => {
-	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 	// 2021-02-09
 	// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
 	// https://github.com/flat0/react-2021-02-06/issues/3
