@@ -86,6 +86,11 @@ class Game extends React.Component {
 		const winner = calculateWinner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
 		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves
+		const moves = history.map((step, move) => {
+			const desc ='Go to ' + (move ? 'move #' + move : 'game start');
+			return <li><button onClick={() => this.jumpTo(move)}>{desc}</button></li>;
+		});
 		return (
 			<div className='game'>
 				<div className='game-board'>
@@ -96,9 +101,8 @@ class Game extends React.Component {
 					/>
 				</div>
 				<div className='game-info'>
-					{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
-					<div>{status}</div>
-					<ol>{/* TODO */}</ol>
+					<div>{status}</div> {/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+					<ol>{moves}</ol> {/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves */}
 				</div>
 			</div>
 		);
