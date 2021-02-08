@@ -41,7 +41,8 @@ class Board extends React.Component {
 		});
 	}
 	render() {
-		const status = 'Next player: X';
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
+		const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		return (
 			<div>
 				<div className='status'>{status}</div>
