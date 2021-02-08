@@ -41,8 +41,10 @@ class Board extends React.Component {
 		});
 	}
 	render() {
+		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
+		const winner = calculateWinner(this.state.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
-		const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		return (
 			<div>
 				<div className='status'>{status}</div>
@@ -117,11 +119,13 @@ function Square(d) {return(
 );}
 ReactDOM.render(<Game/>, document.getElementById('root'));
 /**
- * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
- * @param squares
+ * 2021-02-08
+ * «Given an array of 9 squares, this function will check for a winner and return 'X', 'O', or null as appropriate»:
+ * https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
+ * @param {String[]} s
  * @returns {null|*}
  */
-function calculateWinner(squares) {
+function calculateWinner(s) {
 	var r = null;
 	const lines = [
 		[0, 1, 2]
@@ -135,8 +139,8 @@ function calculateWinner(squares) {
 	];
 	for (let i = 0; i < lines.length; i++) {
 		const [a, b, c] = lines[i];
-		if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-			r = squares[a];
+		if (s[a] && s[a] === s[b] && s[a] === s[c]) {
+			r = s[a];
 			break;
 		}
 	}
