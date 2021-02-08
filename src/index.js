@@ -2,27 +2,24 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-class Board extends React.Component {
-	render() {
-		// 2021-02-09
-		// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
-		// https://github.com/flat0/react-2021-02-06/issues/3
-		return <div>{(() => {
+function Board(d) {return <div>{(() => {
+	// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+	// 2021-02-09
+	// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
+	// https://github.com/flat0/react-2021-02-06/issues/3
+	var r = [];
+	for (let i = 0; i < 3; i++) {
+		r.push (<div className='board-row'>{(o => {
 			var r = [];
-			for (let i = 0; i < 3; i++) {
-				r.push (<div className='board-row'>{(o => {
-					var r = [];
-					for (let col = 0; col < 3; col++) {
-						let i = 3 * o + col;
-						r.push(<Square key={i} onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>);
-					}
-					return r;
-				})(i)}</div>);
+			for (let col = 0; col < 3; col++) {
+				let i = 3 * o + col;
+				r.push(<Square key={i} onClick={() => d.onClick(i)} value={d.squares[i]}/>);
 			}
 			return r;
-		})()}</div>;
+		})(i)}</div>);
 	}
-}
+	return r;
+})()}</div>;}
 class Game extends React.Component {
 	/**
 	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
