@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 function Board(d) {return <div>{(() => {
 	// 2021-02-09
 	// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
-	// https://github.com/flat0/react-2021-02-06/issues/3
+	// https://github.com/flat0/react-tic-tac-toe/issues/3
 	var r = [];
 	for (let i = 0; i < 3; i++) {
 		r.push (<div className='board-row'>{(o => {
@@ -68,7 +68,7 @@ class Game extends React.Component {
 				history: history.concat([{
 					// 2021-02-08
 					// "Display the location for each move in the format (col, row) in the move history list":
-					// https://github.com/flat0/react-2021-02-06/issues/1
+					// https://github.com/flat0/react-tic-tac-toe/issues/1
 					move: i
 					,squares: squares
 				}])
@@ -97,7 +97,7 @@ class Game extends React.Component {
 		/**
 		 * 2021-02-08
 		 * "Display the location for each move in the format (col, row) in the move history list":
-		 * https://github.com/flat0/react-2021-02-06/issues/1
+		 * https://github.com/flat0/react-tic-tac-toe/issues/1
 		 * @param {Number} move
 		 * @return {String}
 		 */

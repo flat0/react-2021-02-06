@@ -1,7 +1,7 @@
 {
-	"name": "react--2021-02-06",
+	"name": "react--tic-tac-toe",
 	"version": "0.0.1",
-	"description": "A test React application",
+	"description": "A test React application (tic-tac-toe)",
 	"author": "Dmitry Fedyuk",
 	"browserslist": {
 		"production": [
