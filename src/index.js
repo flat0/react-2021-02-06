@@ -9,7 +9,10 @@ class Board extends React.Component {
 	 */
 	constructor(d) {
 		super(d);
-		this.state = {squares: Array(9).fill(null)};
+		this.state = {
+			squares: Array(9).fill(null)
+			,xIsNext: true // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
+		};
 	}
 
 	/**
@@ -31,8 +34,11 @@ class Board extends React.Component {
 		// which helps to determine when a component requires re-rendering.»
 		// https://reactjs.org/tutorial/tutorial.html#determining-when-to-re-render-in-react
 		const squares = this.state.squares.slice();
-		squares[i] = 'X';
-		this.setState({squares: squares});
+		squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
+		this.setState({
+			squares: squares
+			,xIsNext: !this.state.xIsNext // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
+		});
 	}
 	render() {
 		const status = 'Next player: X';
