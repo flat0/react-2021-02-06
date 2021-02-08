@@ -79,6 +79,17 @@ class Board extends React.Component {
 	renderSquare(i) {return <Square onClick={() => this.handleClick(i)} value={this.state.squares[i]}/>;}
 }
 class Game extends React.Component {
+	/**
+	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+	 * @param {Object} d
+	 */
+	constructor(d) {
+		super(d);
+		this.state = {
+			history: [{squares: Array(9).fill(null)}]
+			,xIsNext: true
+		};
+	}
 	render() {
 		return (
 			<div className='game'>
