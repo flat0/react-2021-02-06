@@ -133,9 +133,7 @@ class Game extends React.Component {
 					{/* 2021-02-09
 					"Add a toggle button that lets you sort the moves in either ascending or descending order"
 					https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
-					<div>
-						<button onClick={reverse}>reverse</button>
-					</div>
+					<div><button onClick={reverse}>reverse</button></div>
 					<ol>{moves}</ol> {/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves */}
 				</div>
 			</div>
