@@ -30,7 +30,7 @@ class Board extends React.Component {
 	 * @param {Number} i
 	 * @returns {JSX.Element}
 	 */
-	renderSquare(i) {return <Square onClick={() => this.props.handleClick(i)} value={this.props.state.squares[i]}/>;}
+	renderSquare(i) {return <Square onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>;}
 }
 class Game extends React.Component {
 	/**
@@ -67,7 +67,7 @@ class Game extends React.Component {
 		// Immutable data can easily determine if changes have been made,
 		// which helps to determine when a component requires re-rendering.»
 		// https://reactjs.org/tutorial/tutorial.html#determining-when-to-re-render-in-react
-		const squares = this.state.squares.slice();
+		const squares = current.squares.slice();
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
 		if (!calculateWinner(squares) && !squares[i]) {
 			squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
@@ -83,14 +83,14 @@ class Game extends React.Component {
 		const history = this.state.history;
 		const current = history[history.length - 1];
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
-		const winner = calculateWinner(this.state.squares);
+		const winner = calculateWinner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
 		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		return (
 			<div className='game'>
 				<div className='game-board'>
+					{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
 					<Board
-						{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
 						onClick={(i) => this.handleClick(i)}
 						squares={current.squares}
 					/>
