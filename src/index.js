@@ -3,25 +3,26 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 class Board extends React.Component {
-	render() {return (
-		<div>
-			<div className='board-row'>
-				{this.renderSquare(0)}
-				{this.renderSquare(1)}
-				{this.renderSquare(2)}
-			</div>
-			<div className='board-row'>
-				{this.renderSquare(3)}
-				{this.renderSquare(4)}
-				{this.renderSquare(5)}
-			</div>
-			<div className='board-row'>
-				{this.renderSquare(6)}
-				{this.renderSquare(7)}
-				{this.renderSquare(8)}
-			</div>
-		</div>
-	);}
+	render() {
+		// 2021-02-09
+		// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
+		// https://github.com/flat0/react-2021-02-06/issues/3
+		const cols = o => {
+			var r = [];
+			for (let col = 0; col < 3; col++) {
+				r.push(this.renderSquare(3 * o + col));
+			}
+			return r;
+		};
+		const rows = () => {
+			var r = [];
+			for (let row = 0; row < 3; row++) {
+				r.push (<div className='board-row'>{cols(row)}</div>);
+			}
+			return r;
+		};
+		return <div>{rows()}</div>;
+	}
 	/**
 	 * 2021-02-08
 	 * 1) https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
@@ -30,7 +31,7 @@ class Board extends React.Component {
 	 * @param {Number} i
 	 * @returns {JSX.Element}
 	 */
-	renderSquare(i) {return <Square onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>;}
+	renderSquare(i) {return <Square key={i} onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>;}
 }
 class Game extends React.Component {
 	/**
