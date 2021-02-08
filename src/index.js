@@ -65,7 +65,7 @@ class Game extends React.Component {
 		// https://reactjs.org/tutorial/tutorial.html#determining-when-to-re-render-in-react
 		const squares = current.squares.slice();
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
-		if (!calculateWinner(squares) && !squares[i]) {
+		if (!this.winner(squares) && !squares[i]) {
 			squares[i] = this.state.xIsNext ? 'X' : 'O'; // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 			this.setState({
 				// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
@@ -95,7 +95,7 @@ class Game extends React.Component {
 		// https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 		const current = history[this.state.stepNumber];
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
-		const winner = calculateWinner(current.squares);
+		const winner = this.winner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
 		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		/**
@@ -143,6 +143,34 @@ class Game extends React.Component {
 			</div>
 		);
 	}
+	/**
+	 * 2021-02-08
+	 * «Given an array of 9 squares, this function will check for a winner and return 'X', 'O', or null as appropriate»:
+	 * https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
+	 * @param {String[]} s
+	 * @returns {null|*}
+	 */
+	winner(s) {
+		var r = null;
+		const lines = [
+			[0, 1, 2]
+			,[3, 4, 5]
+			,[6, 7, 8]
+			,[0, 3, 6]
+			,[1, 4, 7]
+			,[2, 5, 8]
+			,[0, 4, 8]
+			,[2, 4, 6]
+		];
+		for (let i = 0; i < lines.length; i++) {
+			const [a, b, c] = lines[i];
+			if (s[a] && s[a] === s[b] && s[a] === s[c]) {
+				r = s[a];
+				break;
+			}
+		}
+		return r;
+	}
 }
 /**
  * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#function-components
@@ -172,31 +200,3 @@ function Square(d) {return(
 	</button>
 );}
 ReactDOM.render(<Game/>, document.getElementById('root'));
-/**
- * 2021-02-08
- * «Given an array of 9 squares, this function will check for a winner and return 'X', 'O', or null as appropriate»:
- * https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
- * @param {String[]} s
- * @returns {null|*}
- */
-function calculateWinner(s) {
-	var r = null;
-	const lines = [
-		[0, 1, 2]
-		,[3, 4, 5]
-		,[6, 7, 8]
-		,[0, 3, 6]
-		,[1, 4, 7]
-		,[2, 5, 8]
-		,[0, 4, 8]
-		,[2, 4, 6]
-	];
-	for (let i = 0; i < lines.length; i++) {
-		const [a, b, c] = lines[i];
-		if (s[a] && s[a] === s[b] && s[a] === s[c]) {
-			r = s[a];
-			break;
-		}
-	}
-	return r;
-}
