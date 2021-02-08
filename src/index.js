@@ -8,7 +8,7 @@ function Board(d) {return <div>{(() => {
 	// https://github.com/flat0/react-tic-tac-toe/issues/3
 	var r = [];
 	for (let i = 0; i < 3; i++) {
-		r.push (<div className='board-row'>{(o => {
+		r.push (<div className='board-row' key={i}>{(o => {
 			var r = [];
 			for (let col = 0; col < 3; col++) {
 				let i = 3 * o + col;
@@ -28,6 +28,10 @@ class Game extends React.Component {
 		super(d);
 		this.state = {
 			history: [{squares: Array(9).fill(null)}]
+			// 2021-02-09
+			// "Add a toggle button that lets you sort the moves in either ascending or descending order":
+			// https://github.com/flat0/react-tic-tac-toe/issues/4
+			,reversed: false
 			,stepNumber: 0 // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 			,xIsNext: true // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 		};
@@ -108,6 +112,13 @@ class Game extends React.Component {
 			// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 			return <li key={i}><button onClick={() => this.jumpTo(i)}>{desc}</button></li>;
 		});
+		// 2021-02-09
+		// "Add a toggle button that lets you sort the moves in either ascending or descending order":
+		// https://github.com/flat0/react-tic-tac-toe/issues/4
+		const reverse = () => this.setState({reversed: !this.state.reversed});
+		if (this.state.reversed) {
+			moves.reverse();
+		}
 		return (
 			<div className='game'>
 				<div className='game-board'>
@@ -119,6 +130,12 @@ class Game extends React.Component {
 				</div>
 				<div className='game-info'>
 					<div>{status}</div> {/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+					{/* 2021-02-09
+					"Add a toggle button that lets you sort the moves in either ascending or descending order"
+					https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+					<div>
+						<button onClick={reverse}>reverse</button>
+					</div>
 					<ol>{moves}</ol> {/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves */}
 				</div>
 			</div>
