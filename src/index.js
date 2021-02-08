@@ -89,7 +89,8 @@ class Game extends React.Component {
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#showing-the-past-moves
 		const moves = history.map((step, move) => {
 			const desc ='Go to ' + (move ? 'move #' + move : 'game start');
-			return <li><button onClick={() => this.jumpTo(move)}>{desc}</button></li>;
+			// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
+			return <li key={move}><button onClick={() => this.jumpTo(move)}>{desc}</button></li>;
 		});
 		return (
 			<div className='game'>
