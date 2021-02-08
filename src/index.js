@@ -122,6 +122,7 @@ ReactDOM.render(<Game/>, document.getElementById('root'));
  * @returns {null|*}
  */
 function calculateWinner(squares) {
+	var r = null;
 	const lines = [
 		[0, 1, 2]
 		,[3, 4, 5]
@@ -135,8 +136,9 @@ function calculateWinner(squares) {
 	for (let i = 0; i < lines.length; i++) {
 		const [a, b, c] = lines[i];
 		if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-			return squares[a];
+			r = squares[a];
+			break;
 		}
 	}
-	return null;
+	return r;
 }
