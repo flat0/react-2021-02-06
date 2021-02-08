@@ -7,31 +7,21 @@ class Board extends React.Component {
 		// 2021-02-09
 		// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
 		// https://github.com/flat0/react-2021-02-06/issues/3
-		const cols = o => {
+		return <div>{(() => {
 			var r = [];
-			for (let col = 0; col < 3; col++) {
-				r.push(this.renderSquare(3 * o + col));
+			for (let i = 0; i < 3; i++) {
+				r.push (<div className='board-row'>{(o => {
+					var r = [];
+					for (let col = 0; col < 3; col++) {
+						let i = 3 * o + col;
+						r.push(<Square key={i} onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>);
+					}
+					return r;
+				})(i)}</div>);
 			}
 			return r;
-		};
-		const rows = () => {
-			var r = [];
-			for (let row = 0; row < 3; row++) {
-				r.push (<div className='board-row'>{cols(row)}</div>);
-			}
-			return r;
-		};
-		return <div>{rows()}</div>;
+		})()}</div>;
 	}
-	/**
-	 * 2021-02-08
-	 * 1) https://reactjs.org/tutorial/tutorial.html#passing-data-through-props
-	 * 2) https://reactjs.org/tutorial/tutorial.html#lifting-state-up
-	 * 3) https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
-	 * @param {Number} i
-	 * @returns {JSX.Element}
-	 */
-	renderSquare(i) {return <Square key={i} onClick={() => this.props.onClick(i)} value={this.props.squares[i]}/>;}
 }
 class Game extends React.Component {
 	/**
