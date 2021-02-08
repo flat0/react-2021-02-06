@@ -79,6 +79,11 @@ class Game extends React.Component {
 			});
 		}
 	}
+	/**
+	 * 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
+	 * @param {Number} step
+	 */
+	jumpTo(step) {this.setState({stepNumber: step, xIsNext: (step % 2) === 0});}
 	render() {
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
 		const history = this.state.history;
