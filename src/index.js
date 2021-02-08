@@ -41,6 +41,7 @@ class Game extends React.Component {
 		super(d);
 		this.state = {
 			history: [{squares: Array(9).fill(null)}]
+			,stepNumber: 0 // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 			,xIsNext: true // 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turns
 		};
 	}
