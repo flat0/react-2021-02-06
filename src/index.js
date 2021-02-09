@@ -101,7 +101,12 @@ class Game extends React.Component {
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
 		/** @type {?Number[]} */ const winner = this.winner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
-		const status = winner ? 'Winner: ' + current.squares[winner[0]] : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+		const status = winner ? 'Winner: ' + current.squares[winner[0]] : (
+			// 2021-02-09
+			// "When no one wins, display a message about the result being a draw":
+			// https://github.com/flat0/react-tic-tac-toe/issues/6
+			8 < this.state.stepNumber ? 'Draw' : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
+		);
 		/**
 		 * 2021-02-08
 		 * "Display the location for each move in the format (col, row) in the move history list":
