@@ -19,6 +19,9 @@ ol, ul {padding-left: 30px;}
 }
 .square:focus {outline: none;}
 .kbd-navigation .square:focus {background: #ddd;}
+/* 2021-02-09
+"When someone wins, highlight the three squares that caused the win": https://github.com/flat0/react-tic-tac-toe/issues/5 */
+.square.won {background: pink;}
 .game {display: flex; flex-direction: row;}
 .game-info {margin-left: 20px;}
 /* 2021-02-08 "Bold the currently selected item in the move list": https://github.com/flat0/react-tic-tac-toe/issues/2

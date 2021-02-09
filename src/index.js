@@ -7,12 +7,16 @@ function Board(d) {return <div>{(() => {
 	// "Rewrite Board to use two loops to make the squares instead of hardcoding them":
 	// https://github.com/flat0/react-tic-tac-toe/issues/3
 	var r = [];
+	/** @type {?Number[]} */ const w = d.winner;
 	for (let i = 0; i < 3; i++) {
 		r.push (<div className='board-row' key={i}>{(o => {
 			var r = [];
 			for (let col = 0; col < 3; col++) {
 				let i = 3 * o + col;
-				r.push(<Square key={i} onClick={() => d.onClick(i)} value={d.squares[i]}/>);
+				// 2021-02-09
+				// "When someone wins, highlight the three squares that caused the win":
+				// https://github.com/flat0/react-tic-tac-toe/issues/5
+				r.push(<Square key={i} onClick={() => d.onClick(i)} value={d.squares[i]} won={w && -1 < w.indexOf(i)}/>);
 			}
 			return r;
 		})(i)}</div>);
@@ -95,9 +99,9 @@ class Game extends React.Component {
 		// https://reactjs.org/tutorial/tutorial.html#implementing-time-travel
 		const current = history[this.state.stepNumber];
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
-		const winner = this.winner(current.squares);
+		/** @type {?Number[]} */ const winner = this.winner(current.squares);
 		// 2021-02-08 https://reactjs.org/tutorial/tutorial.html#taking-turn
-		const status = winner ? 'Winner: ' + winner : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+		const status = winner ? 'Winner: ' + current.squares[winner[0]] : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 		/**
 		 * 2021-02-08
 		 * "Display the location for each move in the format (col, row) in the move history list":
@@ -126,10 +130,14 @@ class Game extends React.Component {
 		return (
 			<div className='game'>
 				<div className='game-board'>
-					{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again */}
+					{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#lifting-state-up-again
+					2021-02-09
+					"When someone wins, highlight the three squares that caused the win":
+					https://github.com/flat0/react-tic-tac-toe/issues/5 */}
 					<Board
 						onClick={(i) => this.handleClick(i)}
 						squares={current.squares}
+						winner={winner}
 					/>
 				</div>
 				<div className='game-info'>
@@ -148,7 +156,7 @@ class Game extends React.Component {
 	 * «Given an array of 9 squares, this function will check for a winner and return 'X', 'O', or null as appropriate»:
 	 * https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
 	 * @param {String[]} s
-	 * @returns {null|*}
+	 * @returns {?Number[]}
 	 */
 	winner(s) {
 		var r = null;
@@ -165,7 +173,10 @@ class Game extends React.Component {
 		for (let i = 0; i < lines.length; i++) {
 			const [a, b, c] = lines[i];
 			if (s[a] && s[a] === s[b] && s[a] === s[c]) {
-				r = s[a];
+				// 2021-02-09
+				// "When someone wins, highlight the three squares that caused the win":
+				// https://github.com/flat0/react-tic-tac-toe/issues/5
+				r = lines[i];
 				break;
 			}
 		}
@@ -194,7 +205,9 @@ function Square(d) {return(
 	// we also changed `onClick={() => this.props.onClick()}` to a shorter `onClick={props.onClick}`
 	// (note the lack of parentheses on both sides).»
 	// https://reactjs.org/tutorial/tutorial.html#function-components
-	<button className='square' onClick={d.onClick}>
+	// 2021-02-09
+	// "When someone wins, highlight the three squares that caused the win": https://github.com/flat0/react-tic-tac-toe/issues/5
+	<button className={`square ${!d.won ? '' : 'won'}`} onClick={d.onClick}>
 		{/* 2021-02-08 https://reactjs.org/tutorial/tutorial.html#passing-data-through-props */}
 		{d.value}
 	</button>
